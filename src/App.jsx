@@ -4,33 +4,69 @@ import "./App.css";
 
 function App() {
 
-  const [value, setValue] = useState("");
-  const [fromUnit, setFromUnit] = useState("meter");
-  const [toUnit, setToUnit] = useState("kilometer");
-  const [result, setResult] = useState("");
+const [value, setValue] = useState("");
+
+const [category, setCategory] = useState("length");
+
+const [fromUnit, setFromUnit] = useState("meter");
+
+const [toUnit, setToUnit] = useState("kilometer");
+
+const [result, setResult] = useState("");
 
 
-  const units = {
-    meter: {
-      name: "Meter",
-      value: 1
-    },
+  const categories = {
 
-    kilometer: {
-      name: "Kilometer",
-      value: 1000
-    },
+  length: {
 
-    mile: {
-      name: "Mile",
-      value: 1609.34
-    },
+    name: "Length",
 
-    foot: {
-      name: "Foot",
-      value: 0.3048
+    units: {
+
+      meter: {
+        name: "Meter",
+        value: 1
+      },
+
+      kilometer: {
+        name: "Kilometer",
+        value: 1000
+      },
+
+      mile: {
+        name: "Mile",
+        value: 1609.34
+      },
+
+      foot: {
+        name: "Foot",
+        value: 0.3048
+      }
+
     }
-  };
+
+  },
+
+
+  temperature: {
+
+    name: "Temperature",
+
+    units: {
+
+      celsius: {
+        name: "Celsius"
+      },
+
+      fahrenheit: {
+        name: "Fahrenheit"
+      }
+
+    }
+
+  }
+
+};
 
 
   function convert() {
@@ -42,12 +78,17 @@ function App() {
       return;
     }
 
-    const meters = number * units[fromUnit].value;
+    const currentUnits = categories[category].units;
 
-    const converted = meters / units[toUnit].value;
+
+const meters = number * currentUnits[fromUnit].value;
+
+
+const converted =
+meters / currentUnits[toUnit].value;
 
     setResult(
-      `${number} ${units[fromUnit].name} = ${converted} ${units[toUnit].name}`
+     `${number} ${currentUnits[fromUnit].name} = ${converted} ${currentUnits[toUnit].name}`
     );
   }
 
@@ -58,6 +99,31 @@ function App() {
       <h1>
         Unit Converter
       </h1>
+      <div>
+
+  <label>
+    Category:
+  </label>
+
+
+  <select
+    value={category}
+    onChange={(e)=>setCategory(e.target.value)}
+  >
+
+    {
+      Object.keys(categories).map(cat => (
+
+        <option key={cat} value={cat}>
+          {categories[cat].name}
+        </option>
+
+      ))
+    }
+
+  </select>
+
+</div>
 
 
       <input
@@ -77,9 +143,9 @@ function App() {
         >
 
           {
-            Object.keys(units).map(unit => (
+            Object.keys(categories[category].units).map(unit => (
               <option key={unit} value={unit}>
-                {units[unit].name}
+                {categories[category].units[unit].name}
               </option>
             ))
           }
@@ -97,9 +163,9 @@ function App() {
         >
 
           {
-            Object.keys(units).map(unit => (
+            Object.keys(categories[category].units).map(unit => (
               <option key={unit} value={unit}>
-                {units[unit].name}
+                {categories[category].units[unit].name}
               </option>
             ))
           }
