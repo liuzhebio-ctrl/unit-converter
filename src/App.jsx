@@ -1,35 +1,52 @@
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
+
+  const [value, setValue] = useState("");
+  const [result, setResult] = useState("");
+
+  function convert() {
+
+    const number = Number(value);
+
+    const converted = number / 1000;
+
+    setResult(converted + " km");
+
+  }
+
+
   return (
-    <div className="app">
-      <h1>Unit Converter</h1>
+    <div className="container">
 
-      <p>
-        Convert units quickly and easily
-      </p>
+      <h1>
+        Unit Converter
+      </h1>
 
-      <div className="converter-card">
-        <input 
-          type="number"
-          placeholder="Enter value"
-        />
 
-        <select>
-          <option>Kilometer</option>
-          <option>Mile</option>
-        </select>
+      <input
+        type="number"
+        placeholder="Enter meters"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
 
-        <button>
-          Convert
-        </button>
 
-        <h2>
-          Result: 0
-        </h2>
-      </div>
+      <button onClick={convert}>
+        Convert
+      </button>
+
+
+      <h2>
+        Result:
+        {result}
+      </h2>
+
+
     </div>
-  )
+  );
 }
 
-export default App
+
+export default App;
