@@ -5,11 +5,8 @@ import "./App.css";
 function App() {
 
   const [value, setValue] = useState("");
-
   const [fromUnit, setFromUnit] = useState("meter");
-
   const [toUnit, setToUnit] = useState("kilometer");
-
   const [result, setResult] = useState("");
 
 
@@ -45,24 +42,17 @@ function App() {
       return;
     }
 
-
     const meters = number * units[fromUnit].value;
 
-
-    const converted =
-      meters / units[toUnit].value;
-
+    const converted = meters / units[toUnit].value;
 
     setResult(
       `${number} ${units[fromUnit].name} = ${converted} ${units[toUnit].name}`
     );
-
   }
 
 
-
   return (
-
     <div className="container">
 
       <h1>
@@ -74,66 +64,48 @@ function App() {
         type="number"
         value={value}
         placeholder="Enter value"
-        onChange={(e)=>setValue(e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
       />
 
 
       <div>
-
-        <label>
-          From:
-        </label>
-
+        <label>From:</label>
 
         <select
           value={fromUnit}
-          onChange={(e)=>setFromUnit(e.target.value)}
+          onChange={(e) => setFromUnit(e.target.value)}
         >
 
           {
             Object.keys(units).map(unit => (
-
               <option key={unit} value={unit}>
                 {units[unit].name}
               </option>
-
             ))
           }
 
         </select>
-
-
       </div>
-
 
 
       <div>
-
-        <label>
-          To:
-        </label>
-
+        <label>To:</label>
 
         <select
           value={toUnit}
-          onChange={(e)=>setToUnit(e.target.value)}
+          onChange={(e) => setToUnit(e.target.value)}
         >
 
           {
             Object.keys(units).map(unit => (
-
               <option key={unit} value={unit}>
                 {units[unit].name}
               </option>
-
             ))
           }
 
         </select>
-
-
       </div>
-
 
 
       <button onClick={convert}>
@@ -145,9 +117,7 @@ function App() {
         {result}
       </h2>
 
-
     </div>
-
   );
 }
 
